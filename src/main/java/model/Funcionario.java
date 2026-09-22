@@ -39,12 +39,11 @@ public class Funcionario extends Pessoa{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Funcionario)) return false;
-        Funcionario that = (Funcionario) o;
+        if (!(o instanceof Funcionario that)) return false;
         return Objects.equals(getNome(), that.getNome())
                 && Objects.equals(getDataNascimento(), that.getDataNascimento())
-                && Objects.equals(salario, that.salario)
-                && Objects.equals(funcao, that.funcao);
+                && Objects.equals(getSalario(), that.getSalario())
+                && Objects.equals(getFuncao(), that.getFuncao());
     }
 
     @Override

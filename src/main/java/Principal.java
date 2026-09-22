@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class Principal {
 
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final Locale LOCALE_BR = new Locale("pt", "BR");
+    private static final Locale LOCALE_BR = Locale.of("pt", "BR");
     private static final BigDecimal PERCENTUAL_AUMENTO = new BigDecimal("1.10");
     private static final BigDecimal SALARIO_MINIMO = new BigDecimal("1212.00");
     private static final int MES_OUTUBRO = 10;
@@ -26,12 +26,12 @@ public class Principal {
         System.out.println("Funcionários cadastrados");
         imprimirFuncionarios(funcionarios);
 
-        removerFuncionarioPorNome(funcionarios, "João");
+        removerFuncionarioPorNome(funcionarios);
 
         System.out.println("\nFuncionários cadastrados após remover João:");
         imprimirFuncionarios(funcionarios);
 
-        aplicarAumento(funcionarios, PERCENTUAL_AUMENTO);
+        aplicarAumento(funcionarios);
         System.out.println("\nApós aumento de 10%:");
         imprimirFuncionarios(funcionarios);
 
@@ -51,7 +51,7 @@ public class Principal {
         System.out.println("\nTotal da folha: " + formatarValor(somarSalarios(funcionarios)));
 
         System.out.println("\nSalários mínimos por funcionário:");
-        imprimirSalariosMinimos(funcionarios, SALARIO_MINIMO);
+        imprimirSalariosMinimos(funcionarios);
     }
 
     private static List<Funcionario> criarFuncionarios() {
@@ -69,13 +69,13 @@ public class Principal {
         return funcionarios;
     }
 
-    private static void removerFuncionarioPorNome(List<Funcionario> funcionarios, String nome) {
-        funcionarios.removeIf(f -> f.getNome().equals(nome));
+    private static void removerFuncionarioPorNome(List<Funcionario> funcionarios) {
+        funcionarios.removeIf(f -> f.getNome().equals("João"));
     }
 
-    private static void aplicarAumento(List<Funcionario> funcionarios, BigDecimal percentual) {
+    private static void aplicarAumento(List<Funcionario> funcionarios) {
         for (Funcionario f : funcionarios) {
-            BigDecimal novoSalario = f.getSalario().multiply(percentual).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal novoSalario = f.getSalario().multiply(PERCENTUAL_AUMENTO).setScale(2, RoundingMode.HALF_UP);
             f.setSalario(novoSalario);
         }
     }
@@ -125,9 +125,9 @@ public class Principal {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private static void imprimirSalariosMinimos(List<Funcionario> funcionarios, BigDecimal salarioMinimo) {
+    private static void imprimirSalariosMinimos(List<Funcionario> funcionarios) {
         for (Funcionario f : funcionarios) {
-            BigDecimal qtd = f.getSalario().divide(salarioMinimo, 2, RoundingMode.HALF_UP);
+            BigDecimal qtd = f.getSalario().divide(SALARIO_MINIMO, 2, RoundingMode.HALF_UP);
             System.out.println(f.getNome() + " - " + formatarValor(qtd) + " salários mínimos");
         }
     }
