@@ -23,7 +23,7 @@ public class Principal {
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
 
         List<Funcionario> funcionarios = criarFuncionarios();
-        System.out.println("Funcionários cadastrados");
+        System.out.println("Funcionários cadastrados:");
         imprimirFuncionarios(funcionarios);
 
         removerFuncionarioPorNome(funcionarios);
