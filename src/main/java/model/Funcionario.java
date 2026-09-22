@@ -2,6 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public class Funcionario extends Pessoa{
@@ -29,6 +30,10 @@ public class Funcionario extends Pessoa{
 
     public void setFuncao(String funcao) {
         this.funcao = funcao;
+    }
+
+    public int getIdade() {
+        return Period.between(getDataNascimento(), LocalDate.now()).getYears();
     }
 
     @Override
